@@ -27,7 +27,14 @@ nixos_cpu|The number of cores allocated to the LXC|❌
 For all missing non-mandatory parameter, a default value will be allocated
 
 ## Contributing
-If you want to contribute to this repo, please feel free to! To contribute, please fork the repo, make your changes, and open a Pull Request and wait for me to approve!
+If you want to contribute to this repo, please feel free to! 
+
+To to the code contribute:
+1. Fork the repo
+2. Open a branch with the format `feat/my-new-feature` (replacing `feat` for `docs`, `fix` etc.)
+3. Make your changes
+4. Open a Pull Request
+5. Wait for me to approve!
 
 You can also contribute by putting in a feature request through the Issues page. Any suggestions are welcome!
 
