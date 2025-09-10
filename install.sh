@@ -12,7 +12,7 @@ curl -fsSL -o /opt/nixos-lxc/configuration.nix https://raw.githubusercontent.com
 echo "  Downloading environment file..."
 curl -fsSL -o /opt/nixos-lxc/lxc.env https://raw.githubusercontent.com/CatRass/nixos-lxc/refs/heads/main/src/lxc.env
 
-read -p 'Start installation straight away? (Y/n) ' immediateInstall
+read -p 'Start installation straight away? This means you wont be able to edit the default configuration (Y/n) ' immediateInstall
 
 if [[ ${immediateInstall} == [yY] || -z ${immediateInstall} ]]; then
   echo "  Starting install..."
@@ -23,4 +23,6 @@ elif [[ ${immediateInstall} == [nN] ]]; then
   echo "  Downlaoding and exiting..."
   curl -fsSL -o /opt/nixos-lxc/create.sh https://raw.githubusercontent.com/CatRass/nixos-lxc/refs/heads/main/src/script.sh
   echo "  To install, run 'bash /opt/nixos-lxc/create.sh'"
+  echo "  To make changes to the LXC's config, edit '/opt/nixos-lxc/lxc.env'"
+  echo "  To make changes to the NixOS config, edit '/opt/nixos-lxc/configuration.nix'"
 fi
