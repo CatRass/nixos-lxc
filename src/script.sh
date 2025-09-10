@@ -51,7 +51,7 @@ pct create ${ctid} ${ctt} \
   --hostname=${ctname} \
   --ostype=nixos --unprivileged=0 --features nesting=1 \
   --net0 name=eth0,bridge=vmbr0,ip=dhcp \
-  --arch=amd64 --swap=${ct_swap} --memory=${ctram} \
+  --arch=amd64 --swap=${ctswap} --memory=${ctram} \
   --cores=${ctcpu} \
   --storage=${cts}
 
