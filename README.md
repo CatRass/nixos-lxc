@@ -5,5 +5,5 @@ This script is based off the [NixOS ProxmoxVE LXC guide](https://nixos.wiki/wiki
 ## Using the script
 In your Proxmox console, enter the following command:
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/CatRass/nixos-lxc/refs/heads/main/)install.sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/CatRass/nixos-lxc/refs/heads/main/install.sh)"
 ```
