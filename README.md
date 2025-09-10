@@ -10,7 +10,7 @@ In your Proxmox console, enter the following command:
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/CatRass/nixos-lxc/refs/heads/main/install.sh)"
 ```
 > [!NOTE]
->To make changes to the config current config, you will have to exit out of the installer when prompted
+>To make changes to the current config, you will have to exit out of the installer when prompted
 
 ## Changing LXC Config
 Currently, the LXC's configuration is changed through the [lxc.env](./src/lxc.env) file.
