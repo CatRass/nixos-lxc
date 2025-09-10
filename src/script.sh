@@ -20,7 +20,7 @@ cleanupEnv() {
 clear
 
 echo "Loading environment variables . . ."
-export $(cat lxc.env | xargs) 2> /dev/null
+export $(cat /opt/nixos-lxc/lxc.env | xargs) 2> /dev/null
 
 # Required LXC details
 ctid=${nixos_ctid}
@@ -62,7 +62,7 @@ pct resize ${ctid} rootfs +2G
 pct start ${ctid}
 
 # Move config from this directory to the lxc
-pct push ${ctid} ./configuration.nix /etc/nixos/configuration.nix
+pct push ${ctid} /opt/nixos-lxc/configuration.nix /etc/nixos/configuration.nix
 
 # Remove password
 pct exec ${ctid} -- sh -c "source /etc/set-environment && passwd --delete root"
