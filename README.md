@@ -2,6 +2,9 @@
 This script is based off the [NixOS ProxmoxVE LXC guide](https://nixos.wiki/wiki/Proxmox_Linux_Container). Currently it only installs NixOS 24.11.
 
 ## Using the script
+> [!WARNING] 
+> Before running this script, pkease be sure to check the source code. The source for the installer is viewable [here](./install.sh), and the LXC creation script [here](./src/script.sh)
+
 In your Proxmox console, enter the following command:
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/CatRass/nixos-lxc/refs/heads/main/install.sh)"
