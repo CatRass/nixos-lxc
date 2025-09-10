@@ -6,6 +6,8 @@ In your Proxmox console, enter the following command:
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/CatRass/nixos-lxc/refs/heads/main/install.sh)"
 ```
+> [!NOTE]
+>To make changes to the config current config, you will have to exit outof the installer when prompted
 
 ## Changing LXC Config
 Currently, the LXC's configuration is changed through the [lxc.env](./src/lxc.env) file.
@@ -28,3 +30,7 @@ For all missing non-mandatory parameter, a default value will be allocated
 If you want to contribute to this repo, please feel free to! To contribute, please fork the repo, make your changes, and open a Pull Request and wait for me to approve!
 
 You can also contribute by putting in a feature request through the Issues page. Any suggestions are welcome!
+
+## Planned Features
+- Fully guided install
+- All possibly options for `pct create`
