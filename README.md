@@ -3,7 +3,7 @@ This script is based off the [NixOS ProxmoxVE LXC guide](https://nixos.wiki/wiki
 
 ## Using the script
 > [!WARNING] 
-> Before running this script, pkease be sure to check the source code. The source for the installer is viewable [here](./install.sh), and the LXC creation script [here](./src/script.sh)
+> Before running this script, please be sure to check the source code. The source for the installer is viewable [here](./install.sh), and the LXC creation script [here](./src/script.sh)
 
 In your Proxmox console, enter the following command:
 ```bash
