@@ -40,4 +40,5 @@ You can also contribute by putting in a feature request through the Issues page.
 
 ## Planned Features
 - Fully guided install
-- All possibly options for `pct create`
+- All possible options for `pct create` configurable
+- Error handling for everything 😅
