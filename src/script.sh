@@ -46,6 +46,12 @@ wget -O /var/lib/vz/template/cache/nixos-system.tar.xz \
   --no-verbose \
   https://hydra.nixos.org/job/nixos/release-24.11/nixos.proxmoxLXC.x86_64-linux/latest/download-by-type/file/system-tarball
 
+export errorMsg=$?
+if [ "$RC" != "0" ]; then
+    echo "  Error: Unable to download NixOS template"
+    exit 1
+fi
+
 # Create the LXC
 pct create ${ctid} ${ctt} \
   --hostname=${ctname} \
