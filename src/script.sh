@@ -128,7 +128,7 @@ if [ "$nixosUpdateError" != "0" ]; then
 fi
 
 # Move NixOS config from this directory to the lxc
-echo "Moveing Nix config to LXC . . ."
+echo "Moving Nix config to LXC . . ."
 lxcPushConfig=$(pct push ${ctid} /opt/nixos-lxc/configuration.nix /etc/nixos/configuration.nix)
 
 export lxcConfigError=$?
