@@ -17,15 +17,16 @@ Currently, the LXC's configuration is changed through the [lxc.env](./src/lxc.en
 
 The supported parameters are:
 
-|Parameter|Description|Mandatory|
-|-|-|-|
-nixos_ctid|The LXC's ID|✔️
-nixos_ctname|The name of the LXC|✔️
-nixos_ctt|Location of the LXC templae|✔️
-nixos_ctstorage|Default storage for the LXC|✔️
-nixos_ram|The amount of RAM (MB) allocated to the LXC|❌
-nixos_swap|The amount of swapspace (MB) allocated to the LXC|❌
-nixos_cpu|The number of cores allocated to the LXC|❌
+|Parameter|Description|Default Value|Mandatory|
+|-|-|-|-|
+nixos_ctid|The LXC's ID|`100`|✔️|
+nixos_ctname|The name of the LXC|`nixos-lxc`|✔️|
+nixos_ctt|Location of the LXC template|`local:vztmpl/nixos-system.tar.xz`|✔️|
+nixos_ctstorage|Default storage for the LXC|`local-lvm`|✔️|
+nixos_ram|The amount of RAM (MB) allocated to the LXC|`2048`|❌|
+nixos_swap|The amount of swapspace (MB) allocated to the LXC|`1024`|❌|
+nixos_cpu|The number of cores allocated to the LXC|`2`|❌|
+nixos_autostart|Whether the container should start on proxmox boot|`1` (True)|❌|
 
 For all missing non-mandatory parameter, a default value will be allocated
 
