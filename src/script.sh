@@ -19,7 +19,10 @@ cleanupEnv() {
 
 deleteUnfinishedLXC() {
   local lxcID=$1
-  pct shutdown ${lxcID}
+  local shutdown=${$2:-false}
+  if $shutdown; then
+    pct shutdown ${lxcID}
+  fi
   pct destroy ${lxcID}
 }
 
@@ -75,11 +78,28 @@ if [ "$lxcCreateError" != "0" ]; then
     exit 1
 fi
 
-# Change some thingies
-pct resize ${ctid} rootfs +2G
+# Resize File System
+lxcResize=$(pct resize ${ctid} rootfs +2G)
+
+export lxcResizeError=$?
+if [ "$lxcResizeError" != "0" ]; then
+    echo "  Error: Unable to resize LXC, reason: \"${lxcResize}\""
+    echo "  Deleting LXC..."
+    deleteUnfinishedLXC ${ctid}
+    exit 1
+fi
 
 # Start the LXC
-pct start ${ctid}
+lxcStart=$(pct start ${ctid})
+
+export lxcStartError=$?
+if [ "$lxcStartError" != "0" ]; then
+    echo "  Error: Unable to start LXC, reason: \"${lxcStart}\""
+    echo "  Deleting LXC..."
+    deleteUnfinishedLXC ${ctid}
+    exit 1
+fi
+
 
 # Move config from this directory to the lxc
 pct push ${ctid} /opt/nixos-lxc/configuration.nix /etc/nixos/configuration.nix
