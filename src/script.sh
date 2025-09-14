@@ -114,7 +114,14 @@ if [ ! -e "/opt/nixos-lxc/rerun.tmp" ]; then
   fi
 
   # Remove password
-  pct exec ${ctid} -- sh -c "source /etc/set-environment && passwd --delete root"
+  echo "Removing default root password . . ."
+  nixosRemPass=$(pct exec ${ctid} -- sh -c "source /etc/set-environment && passwd --delete root")
+
+  export nixosRemPassError=$?
+  if [ "$nixosRemPassError" != "0" ]; then
+      echo "  Error: Unable remove default password, reason: \"${nixosRemPass}\""
+      exit 1
+  fi
 fi
 
 # Get NixOS Updates
