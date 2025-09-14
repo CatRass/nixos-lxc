@@ -89,7 +89,7 @@ fi
 
 # Resize File System
 echo "Resizing File System . . ."
-lxcResize=$(pct resize ${ctid} rootfs +2G)
+lxcResize=$(pct resize ${ctid} rootfs +2G 2>&1)
 
 export lxcResizeError=$?
 if [ "$lxcResizeError" != "0" ]; then
@@ -101,7 +101,7 @@ fi
 
 # Start the LXC
 echo "Starting LXC . . ."
-lxcStart=$(pct start ${ctid})
+lxcStart=$(pct start ${ctid} 2>&1)
 
 export lxcStartError=$?
 if [ "$lxcStartError" != "0" ]; then
@@ -118,9 +118,25 @@ pct push ${ctid} /opt/nixos-lxc/configuration.nix /etc/nixos/configuration.nix
 # Remove password
 pct exec ${ctid} -- sh -c "source /etc/set-environment && passwd --delete root"
 
+# Get NixOS Updates
+echo "Updating NixOS . . ."
+nixosUpdate=$(pct exec ${ctid} -- sh -c "source /etc/set-environment && nix-channel --update" 2>&1)
+
+export nixosUpdateError=$?
+if [ "$nixosUpdateError" != "0" ]; then
+    echo "  Error: Unable to update NixOS LXC, reason: \"${nixosUpdate}\""
+    exit 1
+fi
+
 # Build the nixos from config
-pct exec ${ctid} -- sh -c "source /etc/set-environment && nix-channel --update"
-pct exec ${ctid} -- sh -c "source /etc/set-environment && nixos-rebuild switch --upgrade"
+echo "Rebuilding NixOS with Config . . ."
+nixosBuild=$(pct exec ${ctid} -- sh -c "source /etc/set-environment && nixos-rebuild switch --upgrade" 2>&1)
+
+export nixosBuildError=$?
+if [ "$nixosBuildError" != "0" ]; then
+    echo "  Error: Unable to build NioxOS Config, reason: \"${nixosBuild}\""
+    exit 1
+fi
 
 # clean up environmnet
 cleanupEnv
