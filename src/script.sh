@@ -17,6 +17,11 @@ cleanupEnv() {
   unset nixos_autostart
 }
 
+deleteUnfinishedLXC() {
+  local lxcID=$1
+  pct shutdown ${lxcID}
+  pct destroy ${lxcID}
+}
 
 clear
 
