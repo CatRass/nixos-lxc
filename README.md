@@ -45,4 +45,5 @@ You can also contribute by putting in a feature request through the Issues page.
 ## Planned Features
 - Fully guided install
 - All possible options for `pct create` configurable
+- Add password setting, as currently no root password is set
 - Error handling for everything 😅
