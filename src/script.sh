@@ -63,6 +63,15 @@ if [ "$imageDownloadError" != "0" ]; then
 fi
 
 # Create the LXC
+cat << EndOfMessage
+Creating NixOS LXC '${ctname}':
+  - ID: ${ctid}
+  - Cores: ${ctcpu}
+  - RAM: ${ctram}
+  - SWAP: ${ctswap}
+  - Auto Start: ${ctstart}
+EndOfMessage
+
 lxcCreate=$(pct create ${ctid} ${ctt} \
   --hostname=${ctname} \
   --ostype=nixos --unprivileged=0 --features nesting=1 --start=${ctstart}\
@@ -79,6 +88,7 @@ if [ "$lxcCreateError" != "0" ]; then
 fi
 
 # Resize File System
+echo "Resizing File System . . ."
 lxcResize=$(pct resize ${ctid} rootfs +2G)
 
 export lxcResizeError=$?
@@ -90,6 +100,7 @@ if [ "$lxcResizeError" != "0" ]; then
 fi
 
 # Start the LXC
+echo "Starting LXC . . ."
 lxcStart=$(pct start ${ctid})
 
 export lxcStartError=$?
