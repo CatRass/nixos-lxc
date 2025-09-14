@@ -14,6 +14,7 @@ cleanupEnv() {
   unset nixos_ram
   unset nixos_cpu
   unset nixos_swap
+  unset nixos_autostart
 }
 
 
@@ -39,6 +40,7 @@ fi
 ctram=${nixos_ram:-2048}
 ctcpu=${nixos_cpu:-2}
 ctswap=${nixos_swap:-1024}
+ctstart=${nixos_autostart:-1}
 
 # Download the image
 echo "Downloading latest 24.11 LXC template . . ."
@@ -55,7 +57,7 @@ fi
 # Create the LXC
 pct create ${ctid} ${ctt} \
   --hostname=${ctname} \
-  --ostype=nixos --unprivileged=0 --features nesting=1 \
+  --ostype=nixos --unprivileged=0 --features nesting=1 --start=${ctstart}\
   --net0 name=eth0,bridge=vmbr0,ip=dhcp \
   --arch=amd64 --swap=${ctswap} --memory=${ctram} \
   --cores=${ctcpu} \
