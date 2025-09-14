@@ -128,7 +128,14 @@ if [ "$nixosUpdateError" != "0" ]; then
 fi
 
 # Move NixOS config from this directory to the lxc
-pct push ${ctid} /opt/nixos-lxc/configuration.nix /etc/nixos/configuration.nix
+echo "Moveing Nix config to LXC . . ."
+lxcPushConfig=$(pct push ${ctid} /opt/nixos-lxc/configuration.nix /etc/nixos/configuration.nix)
+
+export lxcConfigError=$?
+if [ "$lxcConfigError" != "0" ]; then
+    echo "  Error: Unable to push NixOS config, reason: \"${lxcPushConfig}\""
+    exit 1
+fi
 
 # Build the nixos from config
 echo "Rebuilding NixOS with Config . . ."
