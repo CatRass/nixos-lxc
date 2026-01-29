@@ -19,7 +19,7 @@ cleanupEnv() {
 
 deleteUnfinishedLXC() {
   local lxcID=$1
-  local shutdown=${$2:-false}
+  local shutdown="${2:-false}"
   if $shutdown; then
     pct shutdown ${lxcID}
   fi
@@ -65,23 +65,31 @@ if [ ! -e "/opt/nixos-lxc/rerun.tmp" ]; then
   fi
 
   # Create the LXC
-  lxcStats=`cat << EOF
-  Creating NixOS LXC '${ctname}':
-    - ID: ${ctid}
-    - Cores: ${ctcpu}
-    - RAM: ${ctram}
-    - SWAP: ${ctswap}
-    - Auto Start: ${ctstart}`
+  read -r -d '' lxcStats <<EOF
+Creating NixOS LXC '${ctname}':
+  - ID: ${ctid}
+  - Cores: ${ctcpu}
+  - RAM: ${ctram}
+  - SWAP: ${ctswap}
+  - Auto Start: ${ctstart}
+EOF
   echo "${lxcStats}"
 
-  lxcCreate=$(pct create ${ctid} ${ctt} \
-    --hostname=${ctname} \
-    --ostype=nixos --unprivileged=0 --features nesting=1 --start=${ctstart}\
-    --net0 name=eth0,bridge=vmbr0,ip=dhcp \
-    --arch=amd64 --swap=${ctswap} --memory=${ctram} \
-    --cores=${ctcpu} \
-    --storage=${cts} \
-    2>&1)
+  lxcCreate="$(
+    pct create "$ctid" "$ctt" \
+      --hostname="$ctname" \
+      --ostype=nixos \
+      --unprivileged=0 \
+      --features nesting=1 \
+      --start="$ctstart" \
+      --net0 name=eth0,bridge=vmbr0,ip=dhcp \
+      --arch=amd64 \
+      --swap="$ctswap" \
+      --memory="$ctram" \
+      --cores="$ctcpu" \
+      --storage="$cts" \
+      2>&1
+  )"
 
   export lxcCreateError=$?
   if [ "$lxcCreateError" != "0" ]; then
