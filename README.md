@@ -23,6 +23,8 @@ nixos_ctid|The LXC's ID|`100`|✔️|
 nixos_ctname|The name of the LXC|`nixos-lxc`|✔️|
 nixos_ctt|Location of the LXC template|`local:vztmpl/nixos-system.tar.xz`|✔️|
 nixos_ctstorage|Default storage for the LXC|`local-lvm`|✔️|
+nixos_ctip|The LXC container's IPv4 address|`dhcp`|✔️|
+nixos_ctgw|The LXC container's default gateway|``|❌|
 nixos_ram|The amount of RAM (MB) allocated to the LXC|`2048`|❌|
 nixos_swap|The amount of swapspace (MB) allocated to the LXC|`1024`|❌|
 nixos_cpu|The number of cores allocated to the LXC|`2`|❌|

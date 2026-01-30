@@ -10,7 +10,9 @@ cleanupEnv() {
   unset nixos_ctid
   unset nixos_ctname
   unset nixos_ctt
-  unset nixos_storage
+  unset nixos_ctstorage
+  unset nixos_ctip
+  unset nixos_ctgw
   unset nixos_ram
   unset nixos_cpu
   unset nixos_swap
@@ -36,6 +38,8 @@ ctid=${nixos_ctid}
 ctname=${nixos_ctname}
 ctt=${nixos_ctt}
 cts=${nixos_ctstorage}
+ctip=${nixos_ctip}
+ctgw=${nixos_ctgw}
 
 if [[ $(validateRequiredEnv) -eq 1 ]]; then
   echo "  Error: Some essential environment variables are missing."
@@ -75,6 +79,11 @@ Creating NixOS LXC '${ctname}':
 EOF
   echo "${lxcStats}"
 
+  networkParams="--net0 name=eth0,bridge=vmbr0,ip="$ctip""
+  if [ "$ctip" != "dhcp" ]; then
+    networkParams="--net0 name=eth0,bridge=vmbr0,ip="$ctip",gw="$ctgw""
+  fi
+
   lxcCreate="$(
     pct create "$ctid" "$ctt" \
       --hostname="$ctname" \
@@ -82,7 +91,7 @@ EOF
       --unprivileged=0 \
       --features nesting=1 \
       --start="$ctstart" \
-      --net0 name=eth0,bridge=vmbr0,ip=dhcp \
+      $networkParams \
       --arch=amd64 \
       --swap="$ctswap" \
       --memory="$ctram" \
